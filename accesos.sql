@@ -74,15 +74,25 @@ CREATE DATABASE AccesosUsuario;
         FOREIGN KEY (idMateria) REFERENCES materias(idMateria),
         FOREIGN KEY (idGrado) REFERENCES grados(idGrado)
     )ENGINE=InnoDB;
+
+    CREATE TABLE recursos
+        (
+            idRecurso INT PRIMARY KEY NOT NULL AUTO_INCREMENT,
+            idContenido INT,
+            recurso VARCHAR(100),
+            tipo ENUM('enlace','archivo'),
+            FOREIGN KEY (idContenido) REFERENCES contenidos(idContenido)
+        )
+        ENGINE=INNODB
+    ;
     
     CREATE TABLE planificaciones
         (
-            idPlanificacion INT PRIMARY KEY NOT NULL AUTO_INCREMENT ,
-            idUsuario       INT                                     ,
-            idMateria       INT                                     ,
-            anio            DATE                                    ,
-            nivel           VARCHAR(20)                             ,
-            FOREIGN KEY (idUsuario) REFERENCES usuarios(idUsuario)  ,
+            idPlanificacion INT PRIMARY KEY NOT NULL AUTO_INCREMENT,
+            idProfesor INT,
+            idMateria INT,
+            fecha DATE,
+            FOREIGN KEY (idProfesor) REFERENCES profesores(idProfesor),
             FOREIGN KEY (idMateria) REFERENCES materias(idMateria)
         )
         ENGINE=INNODB
@@ -90,33 +100,14 @@ CREATE DATABASE AccesosUsuario;
     
     CREATE TABLE plandetalles
         (
-            idPlandetalle   INT PRIMARY KEY NOT NULL AUTO_INCREMENT,
-            idPlanificacion INT                                    ,
-            desde           DATE                                   ,
-            hasta           DATE                                   ,
-            unidad          VARCHAR(22)                            ,
-            contenido       VARCHAR(22)                            ,
-            ejecutado ENUM('si','no')                              ,
-            FOREIGN KEY (idPlanificacion) REFERENCES planificaciones(idPlanificacion)
-        )
-        ENGINE=INNODB
-    ;
-    
-    CREATE TABLE recursos
-        (
-            idRecurso     INT PRIMARY KEY NOT NULL AUTO_INCREMENT,
-            idPlandetalle INT                                    ,
-            tipo ENUM('enlace','archivo')
-        )
-        ENGINE=INNODB
-    ;
-    
-    CREATE TABLE recursoDetalle
-        (
-            idRecursoDetalle INT PRIMARY KEY NOT NULL AUTO_INCREMENT,
-            idRecurso        INT                                    ,
-            recurso          VARCHAR(20)                            ,
-            FOREIGN KEY (idRecurso) REFERENCES recursos(idRecurso)
+            idPlandetalle INT PRIMARY KEY NOT NULL AUTO_INCREMENT,
+            idPlanificacion INT,
+            desde DATE,
+            hasta DATE,
+            idContenido INT,
+            ejecutado SET('sí','no'),
+            FOREIGN KEY (idPlanificacion) REFERENCES planificaciones(idPlanificacion),
+            FOREIGN KEY (idContenido) REFERENCES contenidos(idContenido)
         )
         ENGINE=INNODB
     ;
