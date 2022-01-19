@@ -134,35 +134,16 @@ CREATE DATABASE AccesosUsuario;
         ENGINE=INNODB
     ;
     
-    INSERT INTO roles
-        (rol
-        )
-        values
-        ('Director'
-        )
-        ,
-        ('Profesor'
-        )
-    ;
+    INSERT INTO roles(rol) values ('Director'),('Profesor');
     
-    INSERT INTO usuarios
-        (nombre     ,
-            usuario ,
-            clave   ,
-            idRol
-        )
-        values
-        ('Eduardo'   ,
-            'Ed'     ,
-            '123456' ,
-            2
-        )
-        ,
-        ('Urrutia'   ,
-            'Ut'     ,
-            '123456' ,
-            1
-        )
-    ;
+    INSERT INTO usuarios(nombre, apellido, correo, telefono, usuario, clave, idRol) values ('Eduardo', 'Guardado', 'eduardo@mail.com', '76546134', 'Ed', '123456', 2),('Urrutia', 'Ramos', 'urrutia@mail.com', '78654321', 'Ut', '123456', 1);
 
-    INSERT INTO planificaciones(idUsuario, idMateria, anio, nivel) VALUES (4,4,STR_TO_DATE('01/01/2021','%d/%m/%Y'),'Sexto Grado')
+    INSERT INTO grados(nivel, tipo, seccion) values ('Primero', 'basica', 'A'),('Segundo', 'basica', 'A'),('Tercero', 'basica', 'A');
+
+    INSERT INTO materias (materia, tipo, idGrado) values ('Lenguaje','basica',1),('Matemática','basica',1),('Ciencias','basica',1),('Sociales','basica',1);
+
+    INSERT INTO unidades(etapa) values ('Unidad 1: '),('Unidad 2: '),('Unidad 3: '),('Unidad 4: '),('Unidad 5: '),('Unidad 6: '),('Unidad 7: ');
+
+    INSERT INTO detalleUnidades(idMateria, idUnidad, tituloUnidad) values (1,1,'Las Vocales'),(1,2,'Mayúsculas y minúsculas'),(2,1,'Los números'),(2,1,'aprendiendo a contar');
+
+   -- INSERT INTO planificaciones(idUsuario, idMateria, anio, nivel) VALUES (4,4,STR_TO_DATE('01/01/2021','%d/%m/%Y'),'Sexto Grado')
